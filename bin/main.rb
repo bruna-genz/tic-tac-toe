@@ -1,6 +1,13 @@
-#! /usr/bin/ruby
+#!/usr/bin/env ruby
 
 # frozen_string_literal: true
+
+require './lib/game_logic.rb'
+
+game = Game.new
+game.test
+
+game.setPlayerName(gets.chomp)
 
 puts "Hello, players. Welcome to Tic Tac Toe!"
 puts "First player, please, choose between X or O."
@@ -59,3 +66,4 @@ puts "Player X, your turn. Please, choose an available position between 1 to 9."
 move_player_1 = gets.chomp
 puts "This poisition in not available. Please, choose an available position between 1 to 9."
 move_player_1 = gets.chomp
+
