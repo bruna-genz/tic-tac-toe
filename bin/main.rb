@@ -129,7 +129,7 @@ while player_turn == "O"
                 player_turn = "X"
                 puts "Well done! The selected move is valid, but the game is not over yet." 
 
-                puts "   |   |   "      # The program will display the board with the mark on the chosen position
+                puts "   |   | O "      # The program will display the board with the mark on the chosen position
                 puts "-----------"
                 puts "   | X |   "
                 puts "-----------"
