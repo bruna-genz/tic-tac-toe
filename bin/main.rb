@@ -10,22 +10,28 @@ puts "Now, player number 2, what is your name?"
 palyer_2 = gets.chomp
 puts "Ok #{palyer_2}, you're gonna be the O's."
 puts "Do you wanna look at the game rules before start? (type yes or no)"
-show_rules = true if gets.chomp == "yes"
-game_on = true
 
-# if wants to see the rules
+# if yes
+case gets.chomp
+when "yes"
+    puts "Ok, then. The board has a 3x3 grid. Each board space is represented by a number from 1 to 9, like that:
+    
+                             1 | 2 | 3 
+                            -----------
+                             4 | 5 | 6 
+                            -----------
+                             7 | 8 | 9 
+    
+Each player will be represented by a mark, X and O. Every round, the players will choose between an available position.
+The player who suceeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
+Enough talk, type OK to start the game!" 
+when "no"
+    puts "Alright, let's start the game then. Type OK to continue."
+else 
+    puts "Please, type yes or no."
+end
 
-show_rules = true
-puts "Ok, then. The board has a 3x3 grid. Each board space is represented by a number from 1 to 9, like that:"
-puts " 1 | 2 | 3 "
-puts "-----------"
-puts " 4 | 5 | 6 "
-puts "-----------"
-puts " 7 | 8 | 9 "
-puts "Each player will be represented by a mark, X and O. Every round, the players will choose between an available position."
-puts "The player who suceeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game."
-puts "Enough talk, let's start the game!"
-game_on = true
+game_on = true if gets.chomp == "OK" || "ok"
 
 # the game will start with a loop. It will stop when someone wins or until a draw.
 
