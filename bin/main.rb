@@ -7,15 +7,16 @@ require './lib/game_logic.rb'
 game = Game.new
 game.test
 
-game.setPlayerName(gets.chomp)
 
 puts "Hello, players. Welcome to Tic Tac Toe!"
 puts "First player, what is your name?"
-player_X = gets.chomp
-puts "Alright, #{player_X}. You're gonna be the X's."
+player_X = Player.new(gets.chomp)
+player_X.mark = "X"
+puts "Alright, #{player_X.name}. You're gonna be the X's."
 puts "Now, player number 2, what is your name?"
-player_O = gets.chomp
-puts "Ok #{player_O}, you're gonna be the O's."
+player_O = Player.new(gets.chomp)
+player_O.mark = "O"
+puts "Ok #{player_O.name}, you're gonna be the O's."
 puts "Do you wanna look at the game rules before start? (type yes or no)"
 
 # if yes
@@ -46,7 +47,7 @@ player_turn = "X" # later it will have a method that changes this variable
 
 # the game will start with a loop. It will stop when someone wins or until a draw.
 
-puts "#{player_X}, your turn. Choose an available position between 1 to 9."
+puts "#{player_X.name}, your turn. Choose an available position between 1 to 9."
 
 puts "   |   |   "
 puts "-----------"
@@ -104,7 +105,7 @@ while player_turn == "X"
     end
 end
 
-puts "#{player_O}, your turn. Choose an available position between 1 to 9."
+puts "#{player_O.name}, your turn. Choose an available position between 1 to 9."
 
 move_player_O = gets.chomp.to_i
 
