@@ -16,11 +16,11 @@ class Board
   end
 
   def display_board
-     "#{board[0]}|#{board[1]}|#{board[2]}\n" <<
-     "-----------\n" << 
-     "#{board[3]}|#{board[4]}|#{board[5]}\n" <<
-     "-----------\n" <<
-     "#{board[6]}|#{board[7]}|#{board[8]}\n"
+    "#{board[0]}|#{board[1]}|#{board[2]}\n" \
+    "-----------\n" \
+    "#{board[3]}|#{board[4]}|#{board[5]}\n" \
+    "-----------\n" \
+    "#{board[6]}|#{board[7]}|#{board[8]}\n"
   end
 
   def mark_position(index, mark)
@@ -33,6 +33,11 @@ class Game
 
   def initialize
     @turn = 0
+  end
+
+  def ask_position
+    player_name = turn.even? ? player_1.name : player_2.name
+    "#{player_name}, your turn. Choose an available position between 1 to 9."
   end
 
   def play(user_input)

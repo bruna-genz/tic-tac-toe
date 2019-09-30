@@ -13,9 +13,11 @@ puts "Now, player number 2, what is your name?"
 player_O = Player.new(gets.chomp)
 player_O.mark = "O"
 puts "Ok #{player_O.name}, you're gonna be the O's."
+
+=begin
 puts "Do you wanna look at the game rules before start? (type yes or no)"
 
-# if yes
+
 case gets.chomp
 when "yes"
     puts "Ok, then. The board has a 3x3 grid. Each board space is represented by a number from 1 to 9, like that:
@@ -34,16 +36,17 @@ when "no"
 else 
     puts "Please, type yes or no."
 end
+=end
 
+=begin ----- this must be on game_logic -------
 game_on = true if gets.chomp == "OK" || "ok"
 position_taken = false # later it will have a method that changes this variable
 winner_combination = false # later it will have a method that changes this variable
 board_full = false # later it will have a method that changes this variable
 player_turn = "X" # later it will have a method that changes this variable
+=end
 
 # the game will start with a loop. It will stop when someone wins or until a draw.
-
-puts "#{player_X.name}, your turn. Choose an available position between 1 to 9."
 
 new_board = Board.new 
 puts new_board.display_board
@@ -53,7 +56,17 @@ game.board = new_board
 game.player_1 = player_X
 game.player_2 = player_O
 
+puts game.ask_position
+
 move_player_X = gets.chomp.to_i
+
+puts "Well done! The selected move is valid, but the game is not over yet." 
+
+game.play(move_player_X)
+puts game.board.display_board
+
+
+=begin
 
 while player_turn == "X"
     if move_player_X.between?(1, 9) # if the player choose a valid position
@@ -158,3 +171,4 @@ puts "Do you wanna play again? (type yes or no)" if !game_on
 new_game = gets.chomp
 game_on true if new_game == "yes"
 
+=end
