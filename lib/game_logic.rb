@@ -84,16 +84,21 @@ class Game
     player_mark = turn.even? ? player_1.mark : player_2.mark
 
     board.mark_position(index, player_mark)
-    moves(user_input)
+    moves(index)
 
     @turn += 1
   end
 
-  def moves(user_input)
+  def moves(index)
     if turn.even?
-      moves_player1 << user_input
+      moves_player1 << index
     else
-      moves_player2 << user_input
+      moves_player2 << index
     end
+  end
+
+  def occupied?(user_input)
+    index = user_input - 1
+    moves_player1.include?(index) || moves_player2.include?(index)
   end
 end

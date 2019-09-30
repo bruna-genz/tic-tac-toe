@@ -42,7 +42,14 @@ while game.game_on
     move = gets.chomp.to_i
 
     if game.valid?(move)
-        puts "Well done! The selected move is valid, but the game is not over yet."
+        if game.occupied?(move)
+            while game.occupied?(move)
+                puts "This position is already taken. Please, choose an available position between 1 to 9."
+                move = gets.chomp.to_i
+            end
+        else
+            puts "Well done! The selected move is valid, but the game is not over yet."
+        end
     else
         until game.valid?(move)
             puts "This move is not valid. Please, choose an available position between 1 to 9."
@@ -101,58 +108,6 @@ while player_turn == "X"
         player_turn = "X"
         puts "This move is not valid. Please, choose an available position between 1 to 9." 
         move_player_X = gets.chomp.to_i
-    end
-end
-
-puts "#{player_O.name}, your turn. Choose an available position between 1 to 9."
-
-move_player_O = gets.chomp.to_i
-
-while player_turn == "O"
-    if move_player_O.between?(1, 9) # if the player choose a valid position
-        
-        unless position_taken # if the player choose an empty position
-            if winner_combination # if selected move is a winning move
-                game_on = false
-                puts "You are the winner! Congradulations!"
-
-                puts " X |   | O "
-                puts "-----------"
-                puts "   | X | O "
-                puts "-----------"
-                puts "   |   | X "
-            
-            elsif board_full # if selected move is a draw move
-                game_on = false
-                puts "Game over! The board is full. No winners this time!" 
-
-                puts " X | X | O "
-                puts "-----------"
-                puts " O | X | X "
-                puts "-----------"
-                puts " X | O | O "
-
-            else # if it is an available position
-                player_turn = "X"
-                puts "Well done! The selected move is valid, but the game is not over yet." 
-
-                puts "   |   | O "      # The program will display the board with the mark on the chosen position
-                puts "-----------"
-                puts "   | X |   "
-                puts "-----------"
-                puts "   |   |   "
-            end
-        
-        else # if the player choose a position that is already taken
-            player_turn = "O"
-            puts "This position is already taken. Please, choose an available position between 1 to 9."
-            move_player_O = gets.chomp.to_i
-        end
-
-    else # an error message will apperar if a player input is not valid (not between 1 to 9)
-        player_turn = "O"
-        puts "This move is not valid. Please, choose an available position between 1 to 9." 
-        move_player_O = gets.chomp.to_i
     end
 end
 
