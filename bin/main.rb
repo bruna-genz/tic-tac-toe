@@ -2,7 +2,7 @@
 
 # frozen_string_literal: true
 
-require './lib/game_logic.rb'
+require "./lib/game_logic.rb"
 
 puts "Hello, players. Welcome to Tic Tac Toe!"
 puts "First player, what is your name?"
@@ -30,39 +30,60 @@ player_turn = "X" # later it will have a method that changes this variable
 
 # the game will start with a loop. It will stop when someone wins or until a draw.
 
-new_board = Board.new if gets.chomp == "ok" || "OK"
-game = Game.new
-game.board = new_board
-game.player_1 = player_X
-game.player_2 = player_O
+repeat_game = true
 
-while game.game_on
-    puts game.ask_position 
-    puts new_board.display_board if game.turn == 0
+while repeat_game
+  new_board = Board.new if gets.chomp == "ok" || "OK"
+  game = Game.new
+  game.board = new_board
+  game.player_1 = player_X
+  game.player_2 = player_O
+
+  while game.game_on
+    puts game.ask_position
+    puts new_board.display_board if game.turn == 0 
     move = gets.chomp.to_i
 
     if game.valid?(move)
-        if game.occupied?(move)
-            while game.occupied?(move)
-                puts "This position is already taken. Please, choose an available position between 1 to 9."
-                move = gets.chomp.to_i
-            end
-        else
-            puts "Well done! The selected move is valid, but the game is not over yet."
+      if game.occupied?(move)
+        while game.occupied?(move)
+          puts "This position is already taken. Please, choose an available position between 1 to 9."
+          move = gets.chomp.to_i
         end
+      else
+        puts "Well done! The selected move is valid, but the game is not over yet."
+      end
     else
-        until game.valid?(move)
-            puts "This move is not valid. Please, choose an available position between 1 to 9."
-            move = gets.chomp.to_i
-        end        
-    end 
+      until game.valid?(move)
+        puts "This move is not valid. Please, choose an available position between 1 to 9."
+        move = gets.chomp.to_i
+      end
+    end
 
     game.play(move)
     puts game.board.display_board
+
+    if game.draw?
+      puts "Game over! The board is full. No winners this time!"
+      game.game_on = false
+    end
+  end
+
+  puts "Game is on? #{game.game_on}"
+
+  unless game.game_on
+    puts "Do you wanna play again? (type yes or no)"
+    case gets.chomp
+    when "yes"
+      puts "you answered yes"
+    when "no"
+      repeat_game = false
+      abort "Ok, see you in the next game!"
+    else
+      puts "Please write yes or no"
+    end
+  end
 end
-
-
-
 
 =begin
 
@@ -118,7 +139,6 @@ new_game = gets.chomp
 game_on true if new_game == "yes"
 
 =end
-
 
 =begin
 while game.game_on

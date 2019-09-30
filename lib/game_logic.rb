@@ -60,12 +60,13 @@ class Board
 end
 
 class Game
-  attr_accessor :turn, :player_1, :player_2, :board, :game_on
+  attr_accessor :turn, :player_1, :player_2, :board, :game_on, :repeat_game
   attr_reader :moves_player1, :moves_player2
 
   def initialize
     @turn = 0
     @game_on = true
+    @repeat_game = true 
     @moves_player1 = []
     @moves_player2 = []
   end
@@ -100,5 +101,9 @@ class Game
   def occupied?(user_input)
     index = user_input - 1
     moves_player1.include?(index) || moves_player2.include?(index)
+  end
+
+  def draw?
+    turn >= 9
   end
 end
