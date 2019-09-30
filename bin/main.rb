@@ -14,6 +14,10 @@ player_O = Player.new(gets.chomp)
 player_O.mark = "O"
 puts "Ok #{player_O.name}, you're gonna be the O's."
 
+puts "Do you wanna look at the game rules before start? (type yes or no)"
+Rules.new(gets.chomp)
+puts Rules.display_rules
+
 =begin
 puts "Do you wanna look at the game rules before start? (type yes or no)"
 
@@ -49,22 +53,22 @@ player_turn = "X" # later it will have a method that changes this variable
 # the game will start with a loop. It will stop when someone wins or until a draw.
 
 new_board = Board.new 
-puts new_board.display_board
-
 game = Game.new
 game.board = new_board
 game.player_1 = player_X
 game.player_2 = player_O
 
-puts game.ask_position
+while game.game_on
+    puts game.ask_position 
+    puts new_board.display_board if game.turn == 0
 
-move_player_X = gets.chomp.to_i
+    move_player_X = gets.chomp.to_i
 
-puts "Well done! The selected move is valid, but the game is not over yet." 
+    puts game.return_position(move_player_X) 
 
-game.play(move_player_X)
-puts game.board.display_board
-
+    game.play(move_player_X)
+    puts game.board.display_board
+end
 
 =begin
 
