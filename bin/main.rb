@@ -14,32 +14,10 @@ player_O = Player.new(gets.chomp)
 player_O.mark = "O"
 puts "Ok #{player_O.name}, you're gonna be the O's."
 
-puts "Do you wanna look at the game rules before start? (type yes or no)"
-Rules.new(gets.chomp)
-puts Rules.display_rules
-
 =begin
 puts "Do you wanna look at the game rules before start? (type yes or no)"
-
-
-case gets.chomp
-when "yes"
-    puts "Ok, then. The board has a 3x3 grid. Each board space is represented by a number from 1 to 9, like that:
-    
-                             1 | 2 | 3 
-                            -----------
-                             4 | 5 | 6 
-                            -----------
-                             7 | 8 | 9 
-    
-Each player will be represented by a mark, X and O. Every round, the players will choose between an available position.
-The player who suceeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
-Enough talk, type OK to start the game!" 
-when "no"
-    puts "Alright, let's start the game then. Type OK to continue."
-else 
-    puts "Please, type yes or no."
-end
+answer = Rules.new(gets.chomp)
+puts answer.display_rules
 =end
 
 =begin ----- this must be on game_logic -------
@@ -52,7 +30,7 @@ player_turn = "X" # later it will have a method that changes this variable
 
 # the game will start with a loop. It will stop when someone wins or until a draw.
 
-new_board = Board.new 
+new_board = Board.new if gets.chomp == "ok" || "OK"
 game = Game.new
 game.board = new_board
 game.player_1 = player_X
