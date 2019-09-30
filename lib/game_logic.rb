@@ -61,10 +61,13 @@ end
 
 class Game
   attr_accessor :turn, :player_1, :player_2, :board, :game_on
+  attr_reader :moves_player1, :moves_player2
 
   def initialize
     @turn = 0
     @game_on = true
+    @moves_player1 = []
+    @moves_player2 = []
   end
 
   def ask_position
@@ -72,13 +75,8 @@ class Game
     "#{player_name}, your turn. Choose an available position between 1 to 9."
   end
 
-  def return_position(user_input)
-    if user_input.between?(1, 9)
-      'Well done! The selected move is valid, but the game is not over yet.'
-    else
-      'This position is already taken. Please, choose an available position between 1 to 9.' # how to take user input???
-      play(user_input)
-    end
+  def valid?(user_input)
+    user_input.between?(1, 9)
   end
 
   def play(user_input)
@@ -86,7 +84,16 @@ class Game
     player_mark = turn.even? ? player_1.mark : player_2.mark
 
     board.mark_position(index, player_mark)
+    moves(user_input)
 
     @turn += 1
+  end
+
+  def moves(user_input)
+    if turn.even?
+      moves_player1 << user_input
+    else
+      moves_player2 << user_input
+    end
   end
 end

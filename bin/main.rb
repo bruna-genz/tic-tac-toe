@@ -39,14 +39,23 @@ game.player_2 = player_O
 while game.game_on
     puts game.ask_position 
     puts new_board.display_board if game.turn == 0
+    move = gets.chomp.to_i
 
-    move_player_X = gets.chomp.to_i
+    if game.valid?(move)
+        puts "Well done! The selected move is valid, but the game is not over yet."
+    else
+        until game.valid?(move)
+            puts "This move is not valid. Please, choose an available position between 1 to 9."
+            move = gets.chomp.to_i
+        end        
+    end 
 
-    puts game.return_position(move_player_X) 
-
-    game.play(move_player_X)
+    game.play(move)
     puts game.board.display_board
 end
+
+
+
 
 =begin
 
@@ -153,4 +162,19 @@ puts "Do you wanna play again? (type yes or no)" if !game_on
 new_game = gets.chomp
 game_on true if new_game == "yes"
 
+=end
+
+
+=begin
+while game.game_on
+    puts game.ask_position 
+    puts new_board.display_board if game.turn == 0
+
+    move_player_X = gets.chomp.to_i
+
+    puts game.return_position(move_player_X) 
+
+    game.play(move_player_X)
+    puts game.board.display_board
+end
 =end
