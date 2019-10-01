@@ -14,20 +14,16 @@ player_O = Player.new(gets.chomp)
 player_O.mark = "O"
 puts "Ok #{player_O.name}, you're gonna be the O's."
 
-=begin
 puts "Do you wanna look at the game rules before start? (type yes or no)"
 answer = Rules.new(gets.chomp)
 puts answer.display_rules
-=end
 
 repeat_game = true
 
 while repeat_game
-  new_board = Board.new if gets.chomp == "ok" || "OK"   # TODO fix this
-  game = Game.new
+  new_board = Board.new if gets.chomp == "ok" || "OK"  
+  game = Game.new(player_X, player_O)
   game.board = new_board
-  game.player_1 = player_X
-  game.player_2 = player_O
 
   while game.game_on
     puts game.ask_position
@@ -39,6 +35,10 @@ while repeat_game
         while game.occupied?(move)
           puts "This position is already taken. Please, choose an available position between 1 to 9."
           move = gets.chomp.to_i
+          until game.valid?(move)
+            puts "This move is not valid. Please, choose an available position between 1 to 9."
+            move = gets.chomp.to_i
+          end
         end
       else
         puts "Well done! The selected move is valid, but the game is not over yet."
@@ -47,6 +47,10 @@ while repeat_game
       until game.valid?(move)
         puts "This move is not valid. Please, choose an available position between 1 to 9."
         move = gets.chomp.to_i
+        while game.occupied?(move)
+          puts "This position is already taken. Please, choose an available position between 1 to 9."
+          move = gets.chomp.to_i
+        end
       end
     end
 
@@ -68,7 +72,7 @@ while repeat_game
     puts "Do you wanna play again? (type yes or no)"
     case gets.chomp
     when "yes"
-      puts "you answered yes"
+      puts "One more round then, type OK to continue."
     when "no"
       repeat_game = false
       abort "Ok, see you in the next game!"

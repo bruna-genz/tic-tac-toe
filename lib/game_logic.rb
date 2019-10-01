@@ -1,13 +1,5 @@
 # frozen_string_literal: false
 
-class Player
-  attr_accessor :name, :mark
-
-  def initialize(name)
-    @name = name
-  end
-end
-
 class Rules
   attr_reader :answer
 
@@ -40,7 +32,8 @@ Enough talk, type OK to start the game!"
 end
 
 class Board
-  attr_accessor :board, :mark
+  attr_accessor :board
+  attr_reader :mark
 
   def initialize
     @board = ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   ', '   ']
@@ -59,14 +52,23 @@ class Board
   end
 end
 
-class Game
-  attr_accessor :turn, :player_1, :player_2, :board, :game_on, :repeat_game
-  attr_reader :moves_player1, :moves_player2, :win_combinations
+class Player
+  attr_accessor :name, :mark
 
-  def initialize
+  def initialize(name)
+    @name = name
+  end
+end
+
+class Game
+  attr_accessor :turn, :board, :game_on
+  attr_reader :player1, :player2, :moves_player1, :moves_player2, :win_combinations
+
+  def initialize(player1, player2)
     @turn = 0
     @game_on = true
-    @repeat_game = true
+    @player1 = player1
+    @player2 = player2
     @moves_player1 = []
     @moves_player2 = []
     @win_combinations = [[0, 1, 2],
@@ -80,7 +82,7 @@ class Game
   end
 
   def ask_position
-    player_name = turn.even? ? player_1.name : player_2.name
+    player_name = turn.even? ? player1.name : player2.name
     "#{player_name}, your turn. Choose an available position between 1 to 9."
   end
 
@@ -90,7 +92,7 @@ class Game
 
   def play(user_input)
     index = user_input - 1
-    player_mark = turn.even? ? player_1.mark : player_2.mark
+    player_mark = turn.even? ? player1.mark : player2.mark
 
     board.mark_position(index, player_mark)
     moves(index)
@@ -130,7 +132,7 @@ class Game
   end
 
   def display_winner
-    player_name = turn.even? ? player_2.name : player_1.name
+    player_name = turn.even? ? player2.name : player1.name
     "#{player_name}, you are the winner! Congradulations!"
   end
 end
