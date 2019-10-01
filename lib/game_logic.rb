@@ -69,7 +69,14 @@ class Game
     @repeat_game = true
     @moves_player1 = []
     @moves_player2 = []
-    @win_combinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[2,4,6],[0,4,8]]
+    @win_combinations = [[0, 1, 2],
+                         [3, 4, 5],
+                         [6, 7, 8],
+                         [0, 3, 6],
+                         [1, 4, 7],
+                         [2, 5, 8],
+                         [2, 4, 6],
+                         [0, 4, 8]]
   end
 
   def ask_position
@@ -110,14 +117,12 @@ class Game
 
   def win?
     result = false
-    i = 0
-    while i < win_combinations.length
-      if (win_combinations[i] & moves_player1) == win_combinations[i] ||
-        (win_combinations[i] & moves_player2) == win_combinations[i]
-        result = true 
+    win_combinations.each do |sub_ar|
+      if sub_ar.all? { |ar| moves_player1.include?(ar) } ||
+         sub_ar.all? { |ar| moves_player2.include?(ar) }
+        result = true
         break
       end
-      i += 1
     end
     result
   end
@@ -127,5 +132,3 @@ class Game
     "#{player_name}, you are the winner! Congradulations!"
   end
 end
-
-
