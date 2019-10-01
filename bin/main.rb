@@ -20,20 +20,10 @@ answer = Rules.new(gets.chomp)
 puts answer.display_rules
 =end
 
-=begin ----- this must be on game_logic -------
-game_on = true if gets.chomp == "OK" || "ok"
-position_taken = false # later it will have a method that changes this variable
-winner_combination = false # later it will have a method that changes this variable
-board_full = false # later it will have a method that changes this variable
-player_turn = "X" # later it will have a method that changes this variable
-=end
-
-# the game will start with a loop. It will stop when someone wins or until a draw.
-
 repeat_game = true
 
 while repeat_game
-  new_board = Board.new if gets.chomp == "ok" || "OK"
+  new_board = Board.new if gets.chomp == "ok" || "OK"   # TODO fix this
   game = Game.new
   game.board = new_board
   game.player_1 = player_X
@@ -67,9 +57,12 @@ while repeat_game
       puts "Game over! The board is full. No winners this time!"
       game.game_on = false
     end
-  end
 
-  puts "Game is on? #{game.game_on}"
+    if game.win?
+      puts game.display_winner
+      game.game_on = false
+    end
+  end
 
   unless game.game_on
     puts "Do you wanna play again? (type yes or no)"
@@ -84,72 +77,3 @@ while repeat_game
     end
   end
 end
-
-=begin
-
-while player_turn == "X"
-    if move_player_X.between?(1, 9) # if the player choose a valid position
-        
-        unless position_taken # if the player choose an empty position
-            if winner_combination # if selected move is a winning move
-                game_on = false
-                puts "You are the winner! Congradulations!"
-
-                puts " X |   | O "
-                puts "-----------"
-                puts "   | X | O "
-                puts "-----------"
-                puts "   |   | X "
-            
-            elsif board_full # if selected move is a draw move
-                game_on = false
-                puts "Game over! The board is full. No winners this time!" 
-
-                puts " X | X | O "
-                puts "-----------"
-                puts " O | X | X "
-                puts "-----------"
-                puts " X | O | O "
-
-            else # if it is an available position
-                player_turn = "O"
-                puts "Well done! The selected move is valid, but the game is not over yet." 
-
-                game.play(move_player_X)
-                puts game.board.display_board
-            end
-        
-        else # if the player choose a position that is already taken
-            player_turn = "X"
-            puts "This position is already taken. Please, choose an available position between 1 to 9."
-            move_player_X = gets.chomp.to_i
-        end
-
-    else # an error message will apperar if a player input is not valid (not between 1 to 9)
-        player_turn = "X"
-        puts "This move is not valid. Please, choose an available position between 1 to 9." 
-        move_player_X = gets.chomp.to_i
-    end
-end
-
-# when game_on = false asks if want new game
-
-puts "Do you wanna play again? (type yes or no)" if !game_on
-new_game = gets.chomp
-game_on true if new_game == "yes"
-
-=end
-
-=begin
-while game.game_on
-    puts game.ask_position 
-    puts new_board.display_board if game.turn == 0
-
-    move_player_X = gets.chomp.to_i
-
-    puts game.return_position(move_player_X) 
-
-    game.play(move_player_X)
-    puts game.board.display_board
-end
-=end

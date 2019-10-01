@@ -61,14 +61,15 @@ end
 
 class Game
   attr_accessor :turn, :player_1, :player_2, :board, :game_on, :repeat_game
-  attr_reader :moves_player1, :moves_player2
+  attr_reader :moves_player1, :moves_player2, :win_combinations
 
   def initialize
     @turn = 0
     @game_on = true
-    @repeat_game = true 
+    @repeat_game = true
     @moves_player1 = []
     @moves_player2 = []
+    @win_combinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[2,4,6],[0,4,8]]
   end
 
   def ask_position
@@ -106,4 +107,25 @@ class Game
   def draw?
     turn >= 9
   end
+
+  def win?
+    result = false
+    i = 0
+    while i < win_combinations.length
+      if (win_combinations[i] & moves_player1) == win_combinations[i] ||
+        (win_combinations[i] & moves_player2) == win_combinations[i]
+        result = true 
+        break
+      end
+      i += 1
+    end
+    result
+  end
+
+  def display_winner
+    player_name = turn.even? ? player_2.name : player_1.name
+    "#{player_name}, you are the winner! Congradulations!"
+  end
 end
+
+
