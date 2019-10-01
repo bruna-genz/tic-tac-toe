@@ -117,12 +117,14 @@ class Game
 
   def win?
     result = false
-    win_combinations.each do |sub_ar|
-      if sub_ar.all? { |ar| moves_player1.include?(ar) } ||
-         sub_ar.all? { |ar| moves_player2.include?(ar) }
+    i = 0
+    while i < win_combinations.length
+      if (win_combinations[i] & moves_player1) == win_combinations[i] ||
+         (win_combinations[i] & moves_player2) == win_combinations[i]
         result = true
         break
       end
+      i += 1
     end
     result
   end
