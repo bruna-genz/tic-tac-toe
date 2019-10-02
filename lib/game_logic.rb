@@ -32,8 +32,7 @@ Enough talk, type OK to start the game!"
 end
 
 class Board
-  attr_accessor :board
-  attr_reader :mark
+  attr_reader :board, :mark
 
   def initialize
     @board = ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   ', '   ']
@@ -53,7 +52,8 @@ class Board
 end
 
 class Player
-  attr_accessor :name, :mark
+  attr_accessor :mark
+  attr_reader :name
 
   def initialize(name)
     @name = name
@@ -114,7 +114,7 @@ class Game
   end
 
   def draw?
-    turn >= 9
+    turn >= 9 unless win?
   end
 
   def win?
