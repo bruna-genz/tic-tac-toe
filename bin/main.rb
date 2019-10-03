@@ -2,7 +2,10 @@
 
 # frozen_string_literal: true
 
-require "./lib/game_logic.rb"
+require "./lib/rules.rb"
+require "./lib/board.rb"
+require "./lib/player.rb"
+require "./lib/game.rb"
 
 puts "Hello, players. Welcome to Tic Tac Toe!"
 puts "First player, what is your name?"

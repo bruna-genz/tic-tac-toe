@@ -5,7 +5,7 @@ Here are some tips to play:
 - The interface of this game will be your computer's terminal. Search "terminal" in your computer to open it.
 - In the terminal, use de comand _cd_ to go to the place where you have saved the Tic Tac Toe repository. For example: Desktop/Games/tic-tac-toe/. 
 You may use the comand _ls_ to see the files and repositories exitent in your current location.
-- Now, use the comand "bin/main.rb" to start the game. Good luck!
+- Now, use the comand _bin/main.rb_ to start the game. Good luck!
 
 If your have never played Tic Tac Toe before, here are the basic rules:
 
