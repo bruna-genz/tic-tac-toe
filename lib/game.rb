@@ -54,7 +54,11 @@ class Game
   end
 
   def draw?
-    turn >= 9 unless win?
+    if win?
+      false
+    else
+      turn >= 9
+    end
   end
 
   def win?
