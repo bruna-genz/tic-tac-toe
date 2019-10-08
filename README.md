@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-## Instalations
+## Installation
 
 This game does not require any significant instalation. The only requirement is to download this repository on your computer.
 
