@@ -4,11 +4,12 @@ class Game
   attr_accessor :turn, :board, :game_on
   attr_reader :player1, :player2, :moves_player1, :moves_player2, :win_combinations
 
-  def initialize(player1, player2)
+  def initialize(player1, player2, board)
     @turn = 0
     @game_on = true
     @player1 = player1
     @player2 = player2
+    @board = board
     @moves_player1 = []
     @moves_player2 = []
     @win_combinations = [[0, 1, 2],
