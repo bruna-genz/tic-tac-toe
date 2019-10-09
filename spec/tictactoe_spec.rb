@@ -66,21 +66,6 @@ RSpec.describe Game do
     end
   end
 
-  describe "#win?" do
-    it "returns true when a player's moves are included in winning combinations" do
-      allow(player_double1).to receive(:mark) { "X" }
-      allow(player_double2).to receive(:mark) { "O" }
-      game_double.play(1)
-      game_double.play(4)
-      game_double.play(2)
-      game_double.play(7)
-      game_double.play(3)
-      game_double.play(9)
-
-      expect(game_double.win?).to eql(true)
-    end
-  end
-
   describe "#draw?" do
     it "returns true when the board is full" do
       allow(player_double1).to receive(:mark) { "X" }
@@ -111,6 +96,55 @@ RSpec.describe Game do
         game_double.play(8)
         game_double.play(9)
         expect(game_double.draw?).to eql(false)
+      end
+    end
+  end
+
+  describe "#win?" do
+    it "returns true when a player's moves are included in winning combinations" do
+      allow(player_double1).to receive(:mark) { "X" }
+      allow(player_double2).to receive(:mark) { "O" }
+      game_double.play(1)
+      game_double.play(4)
+      game_double.play(2)
+      game_double.play(7)
+      game_double.play(3)
+
+      expect(game_double.win?).to eql(true)
+    end
+  end
+
+  describe "#display_winner" do 
+    context "When player 1 wins the game" do
+      it "displays the win massage with player 1's name" do
+        allow(player_double1).to receive(:name) { "Double Player1" }
+        allow(player_double1).to receive(:mark) { "X" }
+        allow(player_double2).to receive(:name) { "Double Player2" }
+        allow(player_double2).to receive(:mark) { "O" }
+        game_double.play(1)
+        game_double.play(4)
+        game_double.play(2)
+        game_double.play(7)
+        game_double.play(3)
+
+        expect(game_double.display_winner).to eql("Double Player1, you are the winner! Congradulations!")
+      end
+    end
+
+    context "When player 2 wins the game" do
+      it "displays the win massage with player 2's name" do
+        allow(player_double1).to receive(:name) { "Double Player1" }
+        allow(player_double1).to receive(:mark) { "X" }
+        allow(player_double2).to receive(:name) { "Double Player2" }
+        allow(player_double2).to receive(:mark) { "O" }
+        game_double.play(9)
+        game_double.play(1)
+        game_double.play(4)
+        game_double.play(2)
+        game_double.play(7)
+        game_double.play(3)
+
+        expect(game_double.display_winner).to eql("Double Player2, you are the winner! Congradulations!")
       end
     end
   end
