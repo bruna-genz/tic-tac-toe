@@ -44,6 +44,28 @@ RSpec.describe Game do
     end
   end
 
+  describe "#occupied?" do
+    context "when user choose and empty space" do
+      it "returns false" do
+        allow(player_double1).to receive(:mark) { "X" }
+        allow(player_double2).to receive(:mark) { "O" }
+        game_double.play(1)
+        game_double.play(5)
+        expect(game_double.occupied?(7)).to eql(false)
+      end
+    end
+
+    context "when user choose and occupied space" do
+      it "returns true" do
+        allow(player_double1).to receive(:mark) { "X" }
+        allow(player_double2).to receive(:mark) { "O" }
+        game_double.play(1)
+        game_double.play(5)
+        expect(game_double.occupied?(1)).to eql(true)
+      end
+    end
+  end
+
   describe "#win?" do
     it "returns true when a player's moves are included in winning combinations" do
       allow(player_double1).to receive(:mark) { "X" }
