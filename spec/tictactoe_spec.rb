@@ -3,6 +3,44 @@
 require "./lib/game.rb"
 require "./lib/player.rb"
 require "./lib/board.rb"
+require "./lib/rules.rb"
+
+RSpec.describe Rules do
+  let(:rules_text) do
+    "Ok, then. The board has a 3x3 grid. Each board space is represented by a number from 1 to 9, like that:
+
+                               1 | 2 | 3
+                              -----------
+                               4 | 5 | 6
+                              -----------
+                               7 | 8 | 9
+
+  Each player will be represented by a mark, X and O.
+  Every round, the players will choose between an available position.
+  The player who suceeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
+  Enough talk, type OK to start the game!" 
+  end
+
+  describe "#display_rules" do
+    context "when answer is yes" do
+      it "displays game rules" do
+        expect(Rules.new("yes").display_rules).to eql(rules_text)
+      end
+    end
+
+    context "when answer is no" do
+      it "displays a message to continue" do
+        expect(Rules.new("no").display_rules).to eql("Alright, let's start the game then. Type OK to continue.")
+      end
+    end
+
+    context "when answer isn't yes or no" do
+      it "displays a message asking to answer yes or no" do
+        expect(Rules.new("no rules please").display_rules).to eql('Please, type yes or no.')
+      end
+    end
+  end
+end
 
 RSpec.describe Game do
 
