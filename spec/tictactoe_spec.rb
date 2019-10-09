@@ -68,6 +68,23 @@ RSpec.describe Game do
     end
   end
 
+  describe "#mark_position" do
+    context "when Player 1 chooses a position" do
+      it "places player 1's mark on board's array" do
+        board_double.mark_position(4, "X")
+        expect(board_double.board).to eql(['   ', '   ', '   ', '   ', ' X ', '   ', '   ', '   ', '   '])
+      end
+    end
+
+    context "when Player 2 chooses a position" do
+      it "places player 2's mark on board's array" do
+        board_double.mark_position(4, "X")
+        board_double.mark_position(7, "O")
+        expect(board_double.board).to eql(['   ', '   ', '   ', '   ', ' X ', '   ', '   ', ' O ', '   '])
+      end
+    end
+  end
+
   describe "#valid?" do
     context "when user's input is not in the range 1..9" do
       it "returns false" do
