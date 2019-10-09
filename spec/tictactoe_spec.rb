@@ -6,13 +6,9 @@ require "./lib/board.rb"
 
 RSpec.describe Game do
 
-  let(:player1) { Player.new("Player1", "X") }
-  let(:player2) { Player.new("Player2", "O") }
-  let(:board) { Board.new }
-  let(:game) { Game.new(player1, player2, board) }
   let(:player_double1) { double("player_double1") }
   let(:player_double2) { double("player_double2") }
-  let(:game_double) { Game.new(player_double1, player_double2, board) }
+  let(:game_double) { Game.new(player_double1, player_double2, board_double) }
   let(:board_double) { Board.new }
 
   describe "#ask_position" do
@@ -35,8 +31,16 @@ RSpec.describe Game do
   end
 
   describe "#valid?" do
-    it "returns false when the user input is not in the range 1..9" do
-      expect(game_double.valid?(11)).to eql(false)
+    context "when user's input is not in the range 1..9" do
+      it "returns false" do
+        expect(game_double.valid?(11)).to eql(false)
+      end
+    end
+
+    context "when user's input in in the range 1..9" do
+      it "returns true" do
+        expect(game_double.valid?(5)).to eql(true)
+      end
     end
   end
 
@@ -57,16 +61,35 @@ RSpec.describe Game do
 
   describe "#draw?" do
     it "returns true when the board is full" do
-      game.play(1)
-      game.play(5)
-      game.play(3)
-      game.play(7)
-      game.play(8)
-      game.play(9)
-      game.play(4)
-      game.play(2)
-      game.play(6)
-      expect(game.draw?).to eql(true)
+      allow(player_double1).to receive(:mark) { "X" }
+      allow(player_double2).to receive(:mark) { "O" }
+      game_double.play(1)
+      game_double.play(5)
+      game_double.play(3)
+      game_double.play(7)
+      game_double.play(8)
+      game_double.play(9)
+      game_double.play(4)
+      game_double.play(2)
+      game_double.play(6)
+      expect(game_double.draw?).to eql(true)
+    end
+
+    context "when a player wins in the last possible move" do
+      it "returns false" do
+        allow(player_double1).to receive(:mark) { "X" }
+        allow(player_double2).to receive(:mark) { "O" }
+        game_double.play(1)
+        game_double.play(2)
+        game_double.play(3)
+        game_double.play(4)
+        game_double.play(5)
+        game_double.play(7)
+        game_double.play(6)
+        game_double.play(8)
+        game_double.play(9)
+        expect(game_double.draw?).to eql(false)
+      end
     end
   end
 end
