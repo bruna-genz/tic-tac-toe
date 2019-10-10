@@ -9,12 +9,10 @@ require "./lib/game.rb"
 
 puts "Hello, players. Welcome to Tic Tac Toe!"
 puts "First player, what is your name?"
-player_X = Player.new(gets.chomp)
-player_X.mark = "X"
+player_X = Player.new(gets.chomp, "X")
 puts "Alright, #{player_X.name}. You're gonna be the X's."
 puts "Now, player number 2, what is your name?"
-player_O = Player.new(gets.chomp)
-player_O.mark = "O"
+player_O = Player.new(gets.chomp, "O")
 puts "Ok #{player_O.name}, you're gonna be the O's."
 
 puts "Do you wanna look at the game rules before start? (type yes or no)"
@@ -25,8 +23,7 @@ repeat_game = true
 
 while repeat_game
   new_board = Board.new if gets.chomp == "ok" || "OK"  
-  game = Game.new(player_X, player_O)
-  game.board = new_board
+  game = Game.new(player_X, player_O, new_board)
 
   while game.game_on
     puts game.ask_position

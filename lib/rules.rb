@@ -12,11 +12,11 @@ class Rules
     when 'yes'
       result = "Ok, then. The board has a 3x3 grid. Each board space is represented by a number from 1 to 9, like that:
 
-                                1 | 2 | 3
+                               1 | 2 | 3
                               -----------
-                                4 | 5 | 6
+                               4 | 5 | 6
                               -----------
-                                7 | 8 | 9
+                               7 | 8 | 9
 
   Each player will be represented by a mark, X and O.
   Every round, the players will choose between an available position.
